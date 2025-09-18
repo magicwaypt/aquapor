@@ -1,21 +1,18 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();
 
-  function go() {
-    // Navega sempre para o dashboard (demo)
+  function entrar() {
+    // Cookie de demo válido por 1 dia (servidor consegue ler)
+    document.cookie = "aq_auth=1; Path=/; Max-Age=86400; SameSite=Lax";
     router.replace('/dashboard');
   }
 
   return (
     <main className="min-h-[calc(100dvh)] grid lg:grid-cols-2">
-      {/* Lado esquerdo, apenas para compor a UI */}
       <div className="hidden lg:block bg-[rgb(var(--brand-700))]" />
-
-      {/* Lado direito (formulário simplificado) */}
       <section className="flex items-center justify-center p-6">
         <div className="w-full max-w-md rounded-2xl bg-white shadow-md border border-slate-200 p-8">
           <div className="mb-6">
@@ -51,14 +48,14 @@ export default function LoginPage() {
 
             <button
               type="button"
-              onClick={go}
+              onClick={entrar}
               className="w-full rounded-md bg-[rgb(var(--brand-500))] hover:opacity-90 text-white py-2.5 font-medium transition"
             >
               Entrar
             </button>
 
             <p className="text-xs text-slate-400 text-center">
-              Demo: qualquer valor funciona — botão entra sempre no dashboard.
+              Demo: o botão define um cookie e entra sempre no dashboard.
             </p>
           </div>
         </div>
