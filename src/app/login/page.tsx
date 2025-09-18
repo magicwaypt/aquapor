@@ -13,6 +13,7 @@ export default function LoginPage() {
             <h1 className="mt-4 text-2xl font-semibold text-slate-900">Aquapor Platform</h1>
             <p className="mt-1 text-sm text-slate-500">Demo: clica em “Entrar” para continuar.</p>
           </div>
+
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
