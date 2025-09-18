@@ -1,8 +1,4 @@
-'use client';
-import { useRouter } from 'next/navigation';
-
 export default function LoginPage() {
-  const router = useRouter();
   return (
     <main className="min-h-[100dvh] grid lg:grid-cols-2">
       <div className="hidden lg:block bg-[rgb(var(--brand-700))]" />
@@ -11,9 +7,8 @@ export default function LoginPage() {
           <div className="mb-6">
             <div className="h-10 w-10 rounded-md bg-[rgb(var(--brand-500))]" />
             <h1 className="mt-4 text-2xl font-semibold text-slate-900">Aquapor Platform</h1>
-            <p className="mt-1 text-sm text-slate-500">Demo: clica em “Entrar” para continuar.</p>
+            <p className="mt-1 text-sm text-slate-500">Demo: este login é ilustrativo.</p>
           </div>
-
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
@@ -23,14 +18,11 @@ export default function LoginPage() {
               <label className="block text-sm font-medium text-slate-700 mb-1">Palavra-passe</label>
               <input className="w-full rounded-md border border-slate-300 px-3 py-2" defaultValue="aquapor123" type="password" />
             </div>
-            <button
-              type="button"
-              onClick={() => router.replace('/dashboard')}
-              className="w-full rounded-md bg-[rgb(var(--brand-500))] hover:opacity-90 text-white py-2.5 font-medium transition"
-            >
+            <a href="/dashboard"
+               className="block text-center w-full rounded-md bg-[rgb(80,176,168)] hover:opacity-90 text-white py-2.5 font-medium transition">
               Entrar
-            </button>
-            <p className="text-xs text-slate-400 text-center">Para a demo, o botão entra sempre.</p>
+            </a>
+            <p className="text-xs text-slate-400 text-center">Para a demo, o botão "Entrar" liga diretamente ao dashboard.</p>
           </div>
         </div>
       </section>
