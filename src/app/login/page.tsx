@@ -1,35 +1,21 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
-  const demoUser = 'admin@aquapor.pt';
-  const demoPass = 'aquapor123';
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const email = String(data.get('email') || '').trim();
-    const password = String(data.get('password') || '');
-
-    // validação dummy
-    if (email === demoUser && password === demoPass) {
-      setError(null);
-      router.push('/dashboard');
-    } else {
-      setError('Credenciais inválidas. Use admin@aquapor.pt / aquapor123');
-    }
+  function go() {
+    // Navega sempre para o dashboard (demo)
+    router.replace('/dashboard');
   }
 
   return (
     <main className="min-h-[calc(100dvh)] grid lg:grid-cols-2">
-      {/* Lado esquerdo (cor sólida) */}
+      {/* Lado esquerdo, apenas para compor a UI */}
       <div className="hidden lg:block bg-[rgb(var(--brand-700))]" />
 
-      {/* Lado direito (formulário) */}
+      {/* Lado direito (formulário simplificado) */}
       <section className="flex items-center justify-center p-6">
         <div className="w-full max-w-md rounded-2xl bg-white shadow-md border border-slate-200 p-8">
           <div className="mb-6">
@@ -38,19 +24,18 @@ export default function LoginPage() {
               Aquapor Platform
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              Inicie sessão para aceder à plataforma.
+              Sessão de demonstração — clica em “Entrar” para continuar.
             </p>
           </div>
 
-          <form onSubmit={onSubmit} className="space-y-4">
+          <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
               <input
                 name="email"
                 type="email"
-                defaultValue={demoUser}
+                defaultValue="admin@aquapor.pt"
                 className="w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[rgb(var(--brand-500))]"
-                required
               />
             </div>
 
@@ -59,27 +44,23 @@ export default function LoginPage() {
               <input
                 name="password"
                 type="password"
-                defaultValue={demoPass}
+                defaultValue="aquapor123"
                 className="w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[rgb(var(--brand-500))]"
-                required
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
-            )}
-
             <button
-              type="submit"
+              type="button"
+              onClick={go}
               className="w-full rounded-md bg-[rgb(var(--brand-500))] hover:opacity-90 text-white py-2.5 font-medium transition"
             >
-              Iniciar Sessão
+              Entrar
             </button>
 
             <p className="text-xs text-slate-400 text-center">
-              Demonstração: {demoUser} / {demoPass}
+              Demo: qualquer valor funciona — botão entra sempre no dashboard.
             </p>
-          </form>
+          </div>
         </div>
       </section>
     </main>
