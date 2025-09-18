@@ -1,103 +1,64 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+export default function SignInPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('admin@aquapor.pt');
+  const [password, setPassword] = useState('aquapor123');
+  const [error, setError] = useState('');
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    // Credenciais fictícias
+    if (email === 'admin@aquapor.pt' && password === 'aquapor123') {
+      // gravar token simples no localStorage
+      localStorage.setItem('aq_auth', JSON.stringify({ user: 'admin', email }));
+      router.push('/dashboard');
+    } else {
+      setError('Email ou palavra-passe incorretos.');
+    }
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen grid place-items-center bg-[rgb(var(--brand-700))]">
+      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="md:flex">
+          <div className="hidden md:block md:w-1/2 bg-[url(/banner.png)] bg-cover bg-center" />
+          <div className="w-full md:w-1/2 p-8">
+            <h1 className="text-2xl font-bold mb-2">Bem-vindo ao Aquapor</h1>
+            <p className="text-sm text-slate-600 mb-6">Inicie sessão para aceder à plataforma de Data Intelligence.</p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input value={email} onChange={(e)=>setEmail(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Palavra-passe</label>
+                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm" />
+              </div>
+
+              {error && <p className="text-sm text-rose-400">{error}</p>}
+
+              <div className="pt-2">
+                <button type="submit"
+                  className="w-full rounded-md bg-[rgb(var(--brand-500))] text-slate-900 py-2 font-medium">
+                  Iniciar Sessão
+                </button>
+              </div>
+
+              <p className="text-xs text-slate-500 text-center mt-2">
+                Credenciais de demonstração: <strong>admin@aquapor.pt</strong> / <strong>aquapor123</strong>
+              </p>
+            </form>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
