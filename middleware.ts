@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Rotas livres
+  // Rotas públicas
   if (
     pathname.startsWith('/login') ||
     pathname.startsWith('/api') ||
@@ -16,8 +16,9 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const isAuthed = req.cookies.get('aq_auth')?.value === '1';
-  if (!isAuthed) {
+  // Precisa do cookie de sessão
+  const authed = req.cookies.get('aq_auth')?.value === '1';
+  if (!authed) {
     const url = req.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
@@ -26,7 +27,6 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// Aplica a todas as rotas, excluindo estáticos comuns
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|assets).*)'],
 };
