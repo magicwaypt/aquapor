@@ -1,0 +1,115 @@
+'use client';
+
+import TrafficLineChart from '@/components/charts/TrafficLine';
+import ConversionFunnel from '@/components/charts/ConversionFunnel';
+import { Clock, FileText, TrendingUp, Lightbulb } from 'lucide-react';
+
+export default function DashboardPage() {
+  // ------- dados dummy -------
+  const trafficData = [
+    { date: 'Seg', visits: 820 },
+    { date: 'Ter', visits: 910 },
+    { date: 'Qua', visits: 860 },
+    { date: 'Qui', visits: 980 },
+    { date: 'Sex', visits: 1120 },
+    { date: 'Sáb', visits: 760 },
+    { date: 'Dom', visits: 640 },
+  ];
+
+  const funnelData = [
+    { name: 'Visitas', value: 12000 },
+    { name: 'Páginas vistas', value: 7200 },
+    { name: 'Leads', value: 480 },
+    { name: 'Qualificados', value: 220 },
+    { name: 'Convertidos', value: 65 },
+  ];
+
+  const topSearches = [
+    { term: 'análises de água', clicks: 800 },
+    { term: 'infraestrutura hídrica', clicks: 705 },
+    { term: 'água sustentável', clicks: 610 },
+  ];
+
+  const siteMetrics = { avgTime: '3m45s', pagesPerSession: 4.2 };
+
+  const industryInsights = [
+    'Procura crescente por sustentabilidade e monitorização de perdas.',
+    'Digitalização: telemetria e dashboards de eficiência são prioridade.',
+    'Mais pedidos por análises completas (microbiológicas + pesticidas).',
+  ];
+
+  const predictiveInsights = [
+    'Leads +12–18% no próximo trimestre com conteúdos sobre “qualidade da água”.',
+    'Maior procura por “telemetria” no verão.',
+  ];
+
+  return (
+    <div className="space-y-6">
+      <h1 className="text-2xl font-semibold">Visão Geral do Dashboard</h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="card p-4 lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">Tendências de tráfego do site</h2>
+            <span className="text-xs rounded-full px-2 py-1 bg-white/5 border border-white/10">Últimos 7 dias</span>
+          </div>
+          <div className="mt-3"><TrafficLineChart data={trafficData} /></div>
+        </div>
+
+        <div className="card p-4">
+          <h2 className="text-lg font-semibold">Palavras-chave em destaque</h2>
+          <ul className="mt-3 space-y-2 text-sm">
+            {topSearches.map(s => (
+              <li key={s.term} className="flex items-center justify-between">
+                <span className="truncate">{s.term}</span>
+                <span className="text-slate-400">{s.clicks} cliques</span>
+              </li>
+            ))}
+          </ul>
+          {/* Métricas principais */}
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="rounded-lg bg-white/5 border border-white/10 p-3">
+              <div className="text-xs text-slate-400 flex items-center gap-2"><Clock className="size-4" />Tempo médio</div>
+              <div className="text-lg font-semibold mt-1">{siteMetrics.avgTime}</div>
+            </div>
+            <div className="rounded-lg bg-white/5 border border-white/10 p-3">
+              <div className="text-xs text-slate-400 flex items-center gap-2"><FileText className="size-4" />Páginas/sessão</div>
+              <div className="text-lg font-semibold mt-1">{siteMetrics.pagesPerSession}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="card p-4">
+        <h2 className="text-lg font-semibold">Funil de conversão</h2>
+        <div className="mt-3"><ConversionFunnel data={funnelData} /></div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="card p-4">
+          <h2 className="text-lg font-semibold flex items-center gap-2"><Lightbulb className="size-5 text-[rgb(var(--brand-500))]" />Insights do Assistente IA</h2>
+          <ul className="list-disc list-inside text-sm mt-3 space-y-1">
+            <li>Otimize a velocidade móvel nas páginas de serviço.</li>
+            <li>Destaque conteúdos sobre “conservação de água”.</li>
+            <li>Aumente o foco em palavras-chave de alta intenção.</li>
+          </ul>
+        </div>
+
+        <div className="card p-4">
+          <h2 className="text-lg font-semibold">Insights da indústria</h2>
+          <ul className="list-disc list-inside text-sm mt-3 space-y-1">
+            {industryInsights.map(i => <li key={i}>{i}</li>)}
+          </ul>
+        </div>
+
+        <div className="card p-4">
+          <h2 className="text-lg font-semibold flex items-center gap-2"><TrendingUp className="size-5 text-[rgb(var(--brand-500))]" />Insights preditivos</h2>
+          <ul className="list-disc list-inside text-sm mt-3 space-y-1">
+            {predictiveInsights.map(i => <li key={i}>{i}</li>)}
+          </ul>
+          <div className="text-xs mt-3 text-slate-400">*Estimativas com base em tendências históricas + sazonalidade.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
